@@ -1,0 +1,39 @@
+image: maven:3.8.4-openjdk-21-slim
+
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
+before_script:
+  - export MAVEN_OPTS="-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository
+
+build:
+  stage: build
+  script:
+    - mvn clean compile
+
+test:
+  stage: test
+  script:
+    - mvn test
+
+package:
+  stage: package
+  script:
+    - mvn package -DskipTests
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to Kubernetes..."
+  environment:
+    name: production
+    url: http://your-application-url
+  only:
+    - main

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: DeliveryApp-deployment
+  labels:
+    app: DeliveryApp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: DeliveryApp
+  template:
+    metadata:
+      labels:
+        app: DeliveryApp
+    spec:
+      containers:
+        - name: DeliveryApp
+          image: docker-registry/DeliveryApp:latest
+          ports:
+            - containerPort: 8080

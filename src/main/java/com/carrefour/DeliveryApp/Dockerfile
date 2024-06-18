@@ -1,0 +1,11 @@
+# Dockerfile
+FROM adoptopenjdk:21-jdk-hotspot
+
+WORKDIR /app
+
+# Copy the packaged JAR file into the container
+COPY target/DeliveryApp-0.0.1-SNAPSHOT.jar /app/app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
